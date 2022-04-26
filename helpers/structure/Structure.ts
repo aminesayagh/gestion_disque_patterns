@@ -17,7 +17,7 @@ export enum STRUCTURE {
 
 // Pile or file
 export default class Structure<TypeCase> implements IPile<TypeCase>, Originator<TypeCase>  {
-    private _listCases: Array<TypeCase>;
+    _listCases: Array<TypeCase>;
     _type: STRUCTURE
     constructor({ type }: { type: STRUCTURE }){
         this._listCases = new Array<TypeCase>();
