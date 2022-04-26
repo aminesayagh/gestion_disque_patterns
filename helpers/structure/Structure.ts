@@ -1,10 +1,7 @@
-interface ListCase {
-    value: number
-}
 
 import { Memonto as ConcreteMemonto } from '../memonto/Memonto';
 import type { IMemento } from '../memonto/Memonto';
-
+import { Originator } from '../memonto/Originator';
 
 interface IPile<TypeCase>{
     postCase: TypeCase;
@@ -13,24 +10,24 @@ interface IPile<TypeCase>{
     initPile(): void;
 }
 
-
-export interface Originator<TypeCase> {
-    save(): IMemento<Array<TypeCase>>
-    restore(lastState: IMemento<Array<TypeCase>>): void 
+export enum STRUCTURE {
+    FILE= 'shift',
+    PILE= 'pop'
 }
 
-
-
-export default class Pile<TypeCase> implements IPile<TypeCase>, Originator<TypeCase>  {
+// Pile or file
+export default class Structure<TypeCase> implements IPile<TypeCase>, Originator<TypeCase>  {
     private _listCases: Array<TypeCase>;
-    constructor(){
+    _type: STRUCTURE
+    constructor({ type }: { type: STRUCTURE }){
         this._listCases = new Array<TypeCase>();
+        this._type = type;
     }
     set postCase(newCase: TypeCase){
         this._listCases.push(newCase);
     }
     get pullCase(){
-        const lastIn = this._listCases.pop();
+        const lastIn = this._listCases[this._type]();
         if(!lastIn) throw new Error("Pile Empty");
         return lastIn;
     }
