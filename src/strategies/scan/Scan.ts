@@ -36,13 +36,14 @@ export default class Scan extends Structure<number> {
     set head(value: number){
         this._heads.postCase = value;
     }
-    private identifySence(){
+    private identifySence(headMemontor){
         if(!this._heads) throw new Error('Your need more of two head for use scam method');
-        const headsSave = this._heads.save();
+        headMemontor.backup();
         const lastValue = this._heads.pullCase;
         const beforeValue = this._heads.getSizeList ? this._heads.pullCase : 0;
+        headMemontor.undo();
+
         const sence :SENCE_OF_HEAD =  lastValue > beforeValue ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT;
-        this._heads.restore(headsSave);
         const { beforeHead, afterHead }= this._generateBeforeAfterOfHead(this._heads.pullCase)
         return { beforeHead, afterHead, sence};
     }
@@ -56,15 +57,18 @@ export default class Scan extends Structure<number> {
 
         this._generateListValueSorted();
         const caratackerMemontor = new CaratakerMemento<IStructure<number>>(this._listValuesSorted);
+        const headMemontor = new CaratakerMemento<IStructure<number>>(this._heads);
         if (!this._listValuesSorted) throw new Error("error in list values");
 
+        headMemontor.backup();
         let { beforeHead, afterHead, sence } = actionWithSave(() => {
-            return this.identifySence();
+            return this.identifySence(headMemontor);
         }, caratackerMemontor);
+        headMemontor.undo();
         
-        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getCaseByIndex(0), (head) => this._heads.postCase = head), caratackerMemontor);
+        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this.head = head), caratackerMemontor);
         actionWithSave(() => sence = this._changeSence(sence), caratackerMemontor);
-        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getCaseByIndex(0), (head) => this._heads.postCase = head), caratackerMemontor);
+        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this._heads.postCase = head), caratackerMemontor);
         const result=  this._sommeRendus();
         console.log(result);
         return result;
