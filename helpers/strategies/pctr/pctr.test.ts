@@ -1,23 +1,21 @@
 import Pctr from './Pctr';
 
-const valuesToAdd = [1, 4, 2, 5, 7, 10];
-const head = 5;
+const tests = [{values: [1, 4, 2, 5 ,7, 10], head: 5, result: 13}, {values: [1, 2, 4, 5, 7, 10], head: 3, result: null}, {values: [3, 2, 1, 20, 25, 4, 6], head: 10, result: 33}]
 
-describe('pctr test', () => { 
-    const pctr = new Pctr();
-    let lengthOfPile: number;
-
-    it("Test to pill list", () => {
-        valuesToAdd.map((value) => {
-            pctr.postCase = value;
+for(const test of tests) {
+    describe(`pctr test ${test.values}`, () => { 
+        const pctr = new Pctr();
+        it("Test filling pill list", () => {
+            test.values.map((value) => {
+                pctr.postCase = value;
+            });
+            expect(pctr.getSizeList).toEqual(test.values.length);
         });
-        lengthOfPile = pctr.getSizeList;
-  
-        expect(pctr.getSizeList).toEqual(valuesToAdd.length);
-    });
-    it('calcul  rendu', () => {
-        pctr.head = head;
-        const rendu = pctr.calculRendu();
-        console.log(rendu);
-    })
- })
+        it(`calcul rendu ${test.values}`, () => {
+            pctr.head = test.head;
+            const rendu = pctr.calculRendu();
+            console.log(rendu);
+            expect(rendu).toEqual(test.result);
+        })
+     })
+}
