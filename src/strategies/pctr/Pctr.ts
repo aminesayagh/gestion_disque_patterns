@@ -10,6 +10,8 @@ import Structure from '../../structure/Structure';
 
 export default class Pctr extends File<number>{
     private _generateListValueSorted: () => void;
+    private _generateBeforeAfterOfHead: (head: number) => {beforeHead: number, afterHead: number };
+    private _renduOfOneSence: (beforeHead, afterHead, sence, getHead, setHead) => void
     private _sommeRendus: () => number;
     private _head: number;
     private _listValuesToCalcul: Array<ICaseRendu>;
@@ -20,32 +22,21 @@ export default class Pctr extends File<number>{
         this._listValuesToCalcul = new Array<ICaseRendu>();
 
         this._generateListValueSorted = listMethods.generateSortList;
+        this._generateBeforeAfterOfHead = listMethods.generateBeforeAfterOfHead;
         this._sommeRendus = listMethods.sommeRendus;
+        this._renduOfOneSence = listMethods.renduOfSence;
         this._head = null;
 
     }
     set head(value: number) {
         this._head = value;
     }
-    identifySence() {
+    private identifySence() {
         const defineSence = (left, center, right) => {
             if (right - center == center - left) return null;
             return right - center > center - left ? SENCE_OF_HEAD.LEFT : SENCE_OF_HEAD.RIGHT;
         }
-        const generateBeforeAfterOfHead = () => {
-            let beforeHead: number = null;
-            let afterHead: number = null;
-            while (this._listValuesSorted.getSizeList && !afterHead) {
-                const value = this._listValuesSorted.pullCase;
-                if (value == this._head) {
-                    return { beforeHead, afterHead: this._listValuesSorted.pullCase };
-                }
-                if (value > this._head && !afterHead) afterHead = value;
-                if (!afterHead) beforeHead = value;
-            }
-            return { beforeHead, afterHead };
-        }
-        const { beforeHead, afterHead } = generateBeforeAfterOfHead();
+        const { beforeHead, afterHead } = this._generateBeforeAfterOfHead(this._head);
         const sence = defineSence(beforeHead, this._head, afterHead);
         return { beforeHead, afterHead, sence };
     }
@@ -61,7 +52,7 @@ export default class Pctr extends File<number>{
             caratackerMemontor.undo();
             return result;
         }
-        const renduOfSence = () => {
+        const renduOfSence = (beforeHead, afterHead, sence) => {
             let openCaseRendu = false;
             convertStructureBySence[sence]();
 
@@ -89,9 +80,9 @@ export default class Pctr extends File<number>{
         }, caratackerMemontor);
         // scam method
         if (!sence) return null; // scan method to use
-        actionWithSave(() => renduOfSence(), caratackerMemontor);
+        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => this._head = head), caratackerMemontor);
         actionWithSave(() => sence = changeSence(sence), caratackerMemontor);
-        actionWithSave(() => renduOfSence(), caratackerMemontor);
+        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => this._head = head), caratackerMemontor);
 
         return this._sommeRendus();
     }
