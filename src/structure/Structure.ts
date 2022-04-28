@@ -9,6 +9,7 @@ export interface IStructure<TypeCase> extends Originator<TypeCase> {
     getSizeList: number;
     changeStructure: STRUCTURE;
     initPile: () => void;
+    getCaseByIndex: (index: number) => TypeCase;
 }
 
 // @ts-ignore
@@ -49,6 +50,9 @@ export default class Structure<TypeCase> implements IStructure<TypeCase>, Origin
         Object.entries(listCases).map(([ key, value]) => {
             this.postCase = value
         });
+    }
+    public getCaseByIndex(index) {
+        return this._listCases[index];
     }
     set changeStructure(value : STRUCTURE){
         this._type = value;

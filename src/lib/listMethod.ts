@@ -17,9 +17,7 @@ export const listMethods = {
     },
     sommeRendus: function () {
         if (!this) throw new Error('this method is used as weak coupling of class');
-        return this._listValuesToCalcul.map((value) => {
-            return value.absoluteDiffrenceCalcul()
-        }).reduce((previousValue, currentValue) => previousValue + currentValue);
+        return this._listValuesToCalcul.map((value) => value.absoluteDiffrenceCalcul()).reduce((previousValue, currentValue) => previousValue + currentValue);
     },
     generateBeforeAfterOfHead: function (head: number) {
         if (!this) throw new Error('this method is used as weak coupling of class');
@@ -37,7 +35,7 @@ export const listMethods = {
     },
     renduOfSence: function (beforeHead, afterHead, sence, getHead ,setHead) {
         if (!this) throw new Error('this method is used as weak coupling of class');
-        if(!this._listValuesSorted || !this._listValuesToCalcul) throw new Error('')
+        if(!this._listValuesSorted || !this._listValuesToCalcul) throw new Error('_listValuesSorted and _listValuesToCalcul is not init')
         const convertStructureBySence = {
             [SENCE_OF_HEAD.LEFT]: () => this._listValuesSorted.changeStructure = STRUCTURE.PILE,
             [SENCE_OF_HEAD.RIGHT]: () => this._listValuesSorted.changeStructure = STRUCTURE.FILE
@@ -50,8 +48,10 @@ export const listMethods = {
             if ((value == beforeHead && sence == SENCE_OF_HEAD.LEFT) || (value == afterHead && sence == SENCE_OF_HEAD.RIGHT) || openCaseRendu) {
                 openCaseRendu = true;
                 this._listValuesToCalcul.push(new CaseRendu({ firstValue: getHead(), secondaryValue: value }));
-                setHead(this._head);
+                setHead(value);
             }
         }
-    }
+        console.log(this._listValuesToCalcul);
+    },
+    changeSence: (sence) => sence == SENCE_OF_HEAD.LEFT ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT
 }
