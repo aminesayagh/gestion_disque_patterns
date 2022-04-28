@@ -2,25 +2,29 @@
 import { IMemento } from './Memonto';
 
 export default class Carataker<TypeOriginator>{
-    private _mementos: IMemento<TypeOriginator>[] = new Array();
+    private mementos: IMemento<TypeOriginator>[] = new Array<IMemento<TypeOriginator>>();
 
-    private _originator : TypeOriginator;
+    private originator : TypeOriginator;
 
     constructor(originator: TypeOriginator){
-        this._originator = originator;
+        this.originator = originator;
     }
 
     public backup(): void {
-        console.log('new Backup ...');
+        // console.log('new Backup ...');
         // @ts-ignore
-        this._mementos.push(this._originator.save());
+        this.mementos.push(this.originator.save());
     }
-    public undo(): void {
-        if(!this._mementos.length) return;
-        const memento = this._mementos.pop();
+    public undo(): void{
+        if(!this.mementos.length) throw new Error('your memento patterns empty');
+        const memento = this.mementos.pop();
 
-        console.log("Carataker Restoring state");
+        // console.log("Carataker Restoring state");
         // @ts-ignore
-        this._originator.restore(memento);
+        this.originator.restore(memento);
+    }
+    public showHistory(): void {
+        console.log('Carataker history state');
+        this.mementos.map((memento, index) => console.log(`v${index}`,memento))
     }
 }

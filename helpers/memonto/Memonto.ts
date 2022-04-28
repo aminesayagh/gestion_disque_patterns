@@ -6,12 +6,12 @@
 export interface IMemento<TypeState> {
     getState(): TypeState;
 }
-export class Memonto<TypeState> implements IMemento<TypeState> {
-    _state: TypeState;
+export default class Memonto<TypeState> implements IMemento<TypeState> {
+    state: TypeState;
     constructor(state: TypeState){
-        this._state = state;
+        this.state = state;
     }
     public getState(): TypeState {
-        return this._state;
+        return this.state;
     }
 }
