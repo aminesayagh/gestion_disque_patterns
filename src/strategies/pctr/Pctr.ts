@@ -52,19 +52,6 @@ export default class Pctr extends File<number>{
             caratackerMemontor.undo();
             return result;
         }
-        const renduOfSence = (beforeHead, afterHead, sence) => {
-            let openCaseRendu = false;
-            convertStructureBySence[sence]();
-
-            while (this._listValuesSorted.getSizeList) {
-                const value = this._listValuesSorted.pullCase;
-                if ((value == beforeHead && sence == SENCE_OF_HEAD.LEFT) || (value == afterHead && sence == SENCE_OF_HEAD.RIGHT) || openCaseRendu) {
-                    openCaseRendu = true;
-                    this._listValuesToCalcul.push(new CaseRendu({ firstValue: this._head, secondaryValue: value }));
-                    this._head = value;
-                }
-            }
-        }
         const changeSence = (sence) => sence == SENCE_OF_HEAD.LEFT ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT;
 
         // verification 

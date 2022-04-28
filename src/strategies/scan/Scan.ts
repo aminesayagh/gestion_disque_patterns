@@ -9,6 +9,7 @@ export default class Scan extends Structure<number> {
     private _generateListValueSorted: () => void;
     private _sommeRendus: () => number;
     private _generateBeforeAfterOfHead: (head: number) => {beforeHead: number, afterHead: number };
+    private _renduOfOneSence: (beforeHead, afterHead, sence, getHead, setHead) => void
 
     private _heads: IStructure<number>;
     public _listValuesSorted: IStructure<number>;
@@ -21,6 +22,8 @@ export default class Scan extends Structure<number> {
         this._generateBeforeAfterOfHead = listMethods.generateBeforeAfterOfHead;
         this._generateListValueSorted = listMethods.generateSortList;
         this._sommeRendus = listMethods.sommeRendus;
+        this._renduOfOneSence = listMethods.renduOfSence;
+
 
     }
     set head(value: number){
@@ -52,10 +55,11 @@ export default class Scan extends Structure<number> {
         const caratackerMemontor = new CaratakerMemento<IStructure<number>>(this._listValuesSorted);
         if (!this._listValuesSorted) throw new Error("error in list values");
 
-        const { beforeHead, ilafterHead, sence } = actionWithSave(() => {
+        const { beforeHead, afterHead, sence } = actionWithSave(() => {
             return this.identifySence();
         }, caratackerMemontor);
         
+        actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.pullCase, (head) => this._heads.postCase = head), caratackerMemontor);
 
 
     }
