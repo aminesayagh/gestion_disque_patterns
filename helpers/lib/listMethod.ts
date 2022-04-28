@@ -14,8 +14,6 @@ export const listMethods = {
     },
     sommeRendus: function(){
         if(!this) throw new Error('this method is used as weak coupling of class');
-        console.log('fin generate rendu');;
-        console.log('rendu', this._listValuesToCalcul);
         return this._listValuesToCalcul.map((value) => {
             return value.absoluteDiffrenceCalcul()
         }).reduce(( previousValue, currentValue ) => previousValue + currentValue);

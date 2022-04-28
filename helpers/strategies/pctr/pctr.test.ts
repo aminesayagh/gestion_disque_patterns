@@ -14,7 +14,6 @@ for(const test of tests) {
         it(`calcul rendu ${test.values}`, () => {
             pctr.head = test.head;
             const rendu = pctr.calculRendu();
-            console.log(rendu);
             expect(rendu).toEqual(test.result);
         })
      })
