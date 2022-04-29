@@ -14,5 +14,6 @@ npm install // installer les  dependances present sur le fichier package.json
 npm run test // pour tester l'executabiliter du programme
 ```
 ## NOTE
-j'ai implementer github action pour un test facil
-visiter le lien si desous: 
+- J'ai implementer github action pour un test facil
+* visiter le lien si desous: https://github.com/aminesayagh/devoirSystemeExploitation/runs/6224202516?check_suite_focus=true
+
