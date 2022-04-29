@@ -25,7 +25,7 @@ export default class Fifo extends File<number>{
             this._listValuesToCalcul.push(new CaseRendu({ firstValue: this._head, secondaryValue: firstCaseInFile }));
             this._head = firstCaseInFile;
         }
-        // console.log('list case: ' ,this._listValuesToCalcul);
+        console.log('list case: ' ,this._listValuesToCalcul);
 
         return this._sommeRendus();
     }

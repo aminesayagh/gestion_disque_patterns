@@ -83,7 +83,7 @@ export default class Pctr extends File<number>{
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => {this._head = head}), caratackerMemontor);
         actionWithSave(() => sence = this._changeSence(sence), caratackerMemontor);
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => {this._head = head}), caratackerMemontor);
-        // console.log('list case: ' ,this._listValuesToCalcul);
+        console.log('list case: ' ,this._listValuesToCalcul);
 
 
         return this._sommeRendus();

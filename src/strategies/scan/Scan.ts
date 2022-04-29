@@ -77,7 +77,7 @@ export default class Scan extends Structure<number> {
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this.head = head), caratackerMemontor);
         actionWithSave(() => sence = this._changeSence(sence), caratackerMemontor);
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this._heads.postCase = head), caratackerMemontor);
-        // console.log('list case: ' ,this._listValuesToCalcul);
+        console.log('list case: ' ,this._listValuesToCalcul);
 
         const result=  this._sommeRendus();
         return result;
