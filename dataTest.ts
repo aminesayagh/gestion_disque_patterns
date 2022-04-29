@@ -1,4 +1,4 @@
-const tests = Object.freeze([
+const tests = [
   {
     name: "test 1",
     values: [1, 4, 2, 5, 7, 10],
@@ -17,6 +17,6 @@ const tests = Object.freeze([
     heads: [9, 10],
     result: { scan: 39, pctr: 33, fifo: 56 },
   },
-]);
+] as const;
 
 export default tests;
