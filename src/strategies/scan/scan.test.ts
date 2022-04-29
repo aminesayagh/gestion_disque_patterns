@@ -1,10 +1,8 @@
 import Scan from './Scan';
 
-const tests = [{ values: [1, 4, 2, 5, 7, 10], head: 5, result: 15 }, 
-// { values: [1, 2, 4, 5, 7, 10], head: 3, result: 12 }, { values: [3, 2, 1, 20, 25, 4, 6], head: 10, result: 59 }
-]
+import dataTest from '../../../dataTest';
 
-for (const test of tests) {
+for (const test of dataTest) {
     describe(`scan test ${test.values}`, () => {
         const scan = new Scan();
         it("Test filling pill list", () => {
@@ -14,10 +12,10 @@ for (const test of tests) {
             expect(scan.getSizeList).toEqual(test.values.length);
         });
         it(`calcul rendu ${test.values}`, () => {
-            scan.head = test.head;
+            test.heads.map((head) => scan.head = head);
 
             const rendu = scan.calculRendu();
-            expect(rendu).toEqual(test.result);
+            expect(rendu).toEqual(test.result.scan);
         })
     })
 }

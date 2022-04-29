@@ -6,7 +6,8 @@ import CaratakerMemento from '../../memonto/Carataker';
 
 import { listMethods } from '../../lib/listMethod';
 import { SENCE_OF_HEAD } from '../types';
-import Structure from '../../structure/Structure';
+
+import Scan from '../scan/Scan';
 
 export default class Pctr extends File<number>{
     private _generateListValueSorted: () => void;
@@ -64,10 +65,27 @@ export default class Pctr extends File<number>{
             return this.identifySence()
         }, caratackerMemontor);
         // scam method
-        if (!sence) return null; // scan method to use
+        if (!sence) {
+            try{
+
+                const scan = new Scan();
+                while(this.getSizeList){
+                    const value = this.pullCase;
+                    scan.postCase = value;
+                }
+                const newHead= this._head;
+                scan.head = newHead;
+                return scan.calculRendu();
+            }catch(err){
+                console.log(err);
+                return null;
+            }
+        }
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => {this._head = head}), caratackerMemontor);
         actionWithSave(() => sence = this._changeSence(sence), caratackerMemontor);
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._head, (head) => {this._head = head}), caratackerMemontor);
+        // console.log('list case: ' ,this._listValuesToCalcul);
+
 
         return this._sommeRendus();
     }

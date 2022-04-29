@@ -22,7 +22,7 @@ describe("Test class of pile", () => {
     });
     it("Test to pull case of pile", () => {
       const value = pile.pullCase;
-      console.log(value);
+
       expect(value).toEqual(valuesToAdd[valuesToAdd.length - 1]);
     });
     it("last case imported does exist", () => {
@@ -51,7 +51,6 @@ describe("Test class of file", () => {
     });
     it("Test to pull case of file", () => {
       const value = file.pullCase;
-      console.log(value);
       expect(value).toEqual(valuesToAdd[0]);
     });
     it("last case imported does exist", () => {

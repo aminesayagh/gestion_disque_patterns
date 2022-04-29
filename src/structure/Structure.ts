@@ -33,7 +33,6 @@ export default class Structure<TypeCase> implements IStructure<TypeCase>, Origin
     get pullCase(){
         const lastIn = this._listCases[this._type]();
         if(!lastIn) throw new Error("Pile Empty");
-        console.log(this._listCases);
         return lastIn;
     }
     public get getSizeList(): number {
@@ -53,7 +52,6 @@ export default class Structure<TypeCase> implements IStructure<TypeCase>, Origin
         });
     }
     public getLastCase() {
-        console.log( this._listCases[this.getSizeList - 1])
         return this._listCases[this.getSizeList - 1];
     }
     set changeStructure(value : STRUCTURE){

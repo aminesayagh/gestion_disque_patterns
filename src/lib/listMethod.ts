@@ -41,6 +41,7 @@ export const listMethods = {
             [SENCE_OF_HEAD.RIGHT]: () => this._listValuesSorted.changeStructure = STRUCTURE.FILE
         }
         let openCaseRendu = false;
+        if(!convertStructureBySence[sence])console.log(sence)
         convertStructureBySence[sence]();
 
         while (this._listValuesSorted.getSizeList) {
@@ -51,7 +52,6 @@ export const listMethods = {
                 setHead(value);
             }
         }
-        console.log(this._listValuesToCalcul);
     },
     changeSence: (sence) => sence == SENCE_OF_HEAD.LEFT ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT
 }

@@ -38,14 +38,23 @@ export default class Scan extends Structure<number> {
     }
     private identifySence(headMemontor){
         if(!this._heads) throw new Error('Your need more of two head for use scam method');
-        headMemontor.backup();
-        const lastValue = this._heads.pullCase;
-        const beforeValue = this._heads.getSizeList ? this._heads.pullCase : 0;
-        headMemontor.undo();
+        try{
+            headMemontor.backup();
+            const lastValue = this._heads.pullCase;
+            const beforeValue = this._heads.getSizeList > 0 ? this._heads.pullCase : 0;
+            headMemontor.undo();
 
-        const sence :SENCE_OF_HEAD =  lastValue > beforeValue ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT;
-        const { beforeHead, afterHead }= this._generateBeforeAfterOfHead(this._heads.pullCase)
-        return { beforeHead, afterHead, sence};
+            headMemontor.backup();
+            const sence :SENCE_OF_HEAD =  lastValue > beforeValue ? SENCE_OF_HEAD.RIGHT : SENCE_OF_HEAD.LEFT;
+            const { beforeHead, afterHead }= this._generateBeforeAfterOfHead(this._heads.pullCase)
+            headMemontor.undo();
+            
+            return { beforeHead, afterHead, sence};
+        }catch(err){
+            console.log('error in identifySence at scan object ',err.message, this._heads);
+            throw new Error(err);
+        }
+
     }
     public calculRendu(){
         const actionWithSave = (action, caratackerMemontor) => {
@@ -65,12 +74,12 @@ export default class Scan extends Structure<number> {
             return this.identifySence(headMemontor);
         }, caratackerMemontor);
         headMemontor.undo();
-        
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this.head = head), caratackerMemontor);
         actionWithSave(() => sence = this._changeSence(sence), caratackerMemontor);
         actionWithSave(() => this._renduOfOneSence(beforeHead, afterHead, sence, () => this._heads.getLastCase(), (head) => this._heads.postCase = head), caratackerMemontor);
+        // console.log('list case: ' ,this._listValuesToCalcul);
+
         const result=  this._sommeRendus();
-        console.log(result);
         return result;
     }
 }
