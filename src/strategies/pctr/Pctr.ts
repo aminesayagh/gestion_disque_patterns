@@ -67,7 +67,6 @@ export default class Pctr extends File<number>{
         // scam method
         if (!sence) {
             try{
-
                 const scan = new Scan();
                 while(this.getSizeList){
                     const value = this.pullCase;
