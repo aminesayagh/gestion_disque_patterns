@@ -15,7 +15,7 @@ npm run test // pour tester l'executabiliter du programme
 ```
 ## NOTE
 - J'ai implementer github action pour un test facil
-* visiter le lien si desous: https://github.com/aminesayagh/devoirSystemeExploitation/runs/6224202516?check_suite_focus=true
+- visiter le lien si desous: https://github.com/aminesayagh/devoirSystemeExploitation/runs/6224202516?check_suite_focus=true
 
 ## REMERCIMENT
-Merci monsieu 
+Merci, Monsieur Mohammed Errais pour votre soutien, ce projet m'a été de grande utilité dans mon apprentissage. 
